@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import LoginButton from './LoginButton';
 
 const styles = {
   loginContainer: {
@@ -47,14 +47,7 @@ class Login extends React.Component {
           value={this.state.username}
           onChange={this.handleChange}
         />
-        <Button
-          id="submit-username"
-          variant="contained"
-          color="primary"
-          onClick={this.handleClick}
-        >
-          Submit
-        </Button>
+        <LoginButton username={this.state.username}/>
       </div>
     );
   }

@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import routes from './routes';
-import {BrowserRouter as Router} from 'react-router-dom';
+import App from './App';
 
 ReactDOM.render(
-    <Router>{routes}</Router>,
+   <App />,
     document.getElementById('root')
 )
 
