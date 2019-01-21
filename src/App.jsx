@@ -6,8 +6,6 @@ import { SharedSnackbarProvider } from "./common/SharedSnackbar.context";
 import { GlobalStateProvider } from "./common/GlobalState.context";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-let userid = ""; // change this to pull w/ context
-
 const App = () => {
   return (
     <GlobalStateProvider>
@@ -15,11 +13,7 @@ const App = () => {
         <Router>
           <React.Fragment>
             <Route path="/login" component={Login} />
-            <ProtectedRoute
-              path="/channels"
-              component={Channels}
-              userid={userid}
-            />
+            <ProtectedRoute path="/channels" component={Channels} />
           </React.Fragment>
         </Router>
       </SharedSnackbarProvider>

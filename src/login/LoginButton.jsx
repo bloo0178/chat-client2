@@ -1,45 +1,43 @@
 import React from "react";
 import { GlobalStateConsumer } from "../common/GlobalState.context";
 import Button from "@material-ui/core/Button";
+import * as SendBird from "sendbird";
 
-/*import * as SendBird from "sendbird";
-
-const sb = new SendBird({ appId: process.env.REACT_APP_SB_APP_ID }); // might need dotenv
-
-export const login = username => {
-  store.dispatch(setSBSess(sb));
+const connectToSendbird = (username, setSendbird) => {
+  const sb = new SendBird({ appId: process.env.REACT_APP_SB_APP_ID });
   return new Promise(resolve => {
     sb.connect(
       username,
       (user, error) => {
-        if (error) return console.log(error);
-        store.dispatch(setUserID(username));
-        resolve(user);
+        if (error) return alert(error);
+        resolve(setSendbird(sb));
       }
     );
   });
-};*/
+};
 
-
-const handleClick = username => updateUsername => updateSendbird => async () => {
+const handleClick = (
+  username,
+  updateUsername,
+  setSendbird,
+  history
+) => async () => {
   if (!username) return alert("enter a username");
+  await connectToSendbird(username, setSendbird);
   updateUsername(username);
-  updateSendbird('placeholder');
-  // pass in the username
-  // establish sendbird connection
-  // update username and sendbird object in the global state
-  // redirect to /channels
+  history.push("/channels");
 };
 
 const LoginButton = props => {
+  const { history, username } = props;
   return (
     <GlobalStateConsumer>
-      {({ updateUsername, updateSendbird }) => (
+      {({ updateUsername, setSendbird }) => (
         <Button
           id="loginButton"
           variant="contained"
           color="primary"
-          onClick={handleClick(props.username)(updateUsername)(updateSendbird)}
+          onClick={handleClick(username, updateUsername, setSendbird, history)}
         >
           Submit
         </Button>

@@ -1,7 +1,46 @@
 import React from "react";
+import { withStyles } from "@material-ui/core/styles";
+import ChannelList from "./ChannelList";
 
-const Channels = props => {
-  return <div>Channels</div>;
+const styles = {
+  root: {
+    width: "100%",
+    display: "flex",
+    direction: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  channelList: {
+    width: "75%",
+    minWidth: 300,
+    maxWidth: 600,
+    padding: "3rem",
+    justifyContent: "center"
+  },
+  createChannel: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    margin: 15
+  }
 };
 
-export default Channels;
+const Channels = props => {
+  const {
+    classes: { root, createChannel, channelList },
+    history
+  } = props;
+  return (
+    <React.Fragment>
+      <div>Navbar w/ history</div>
+      <div className={root}>
+        <div className={channelList}>
+          <ChannelList history={history} />
+        </div>
+        <div className={createChannel}>CreateChannel w/ history(?)</div>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default withStyles(styles)(Channels);

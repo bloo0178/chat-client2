@@ -9,7 +9,7 @@ export const GlobalStateConsumer = GlobalStateContext.Consumer;
 // Provider
 export class GlobalStateProvider extends React.Component {
   state = {
-    username: "test_username",
+    username: "",
     sendbird: "", //sb_object
     channel: "" // currentChannel
   };
@@ -18,7 +18,7 @@ export class GlobalStateProvider extends React.Component {
     this.setState({ username: newUsername });
   };
 
-  updateSendbird = sendbirdObj => {
+  setSendbird = sendbirdObj => {
     this.setState({ sendbird: sendbirdObj });
   };
 
@@ -36,7 +36,7 @@ export class GlobalStateProvider extends React.Component {
           sendbird: sendbird,
           channel: channel,
           updateUsername: this.updateUsername,
-          updateSendbird: this.updateSendbird
+          setSendbird: this.setSendbird
         }}
       >
         {children}

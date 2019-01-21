@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import LoginButton from './LoginButton';
+import LoginButton from "./LoginButton";
 
 const styles = {
   loginContainer: {
@@ -22,18 +22,10 @@ class Login extends React.Component {
     this.setState({ username: event.target.value });
   };
 
-  handleClick = async () => {
-    const { history } = this.props;
-    const { username } = this.state;
-    if (!username) return;
-    this.setState({ username: "" });
-    //await login(this.state.username);
-    history.push("/channels");
-  };
-
   render() {
     const {
-      classes: { loginContainer }
+      classes: { loginContainer },
+      history
     } = this.props;
     return (
       <div className={loginContainer}>
@@ -47,7 +39,11 @@ class Login extends React.Component {
           value={this.state.username}
           onChange={this.handleChange}
         />
-        <LoginButton username={this.state.username}/>
+        <LoginButton
+          id="loginButton"
+          history={history}
+          username={this.state.username}
+        />
       </div>
     );
   }
