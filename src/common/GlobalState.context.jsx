@@ -9,34 +9,55 @@ export const GlobalStateConsumer = GlobalStateContext.Consumer;
 // Provider
 export class GlobalStateProvider extends React.Component {
   state = {
-    username: "",
-    sendbird: "", //sb_object
-    channel: "" // currentChannel
+    sb: "", //sb_object
+    messages: [] // might need
   };
 
-  updateUsername = newUsername => {
-    this.setState({ username: newUsername });
+  /*
+  SB contains the following: 
+  -sb.channelHandlers  (there is a function sb.removeAllChannelHandlers...)
+
+  ????
+  messages
+  */
+
+  addMessage = (sender, message) => {
+    this.setState({
+      messages: [...this.state.messages, { sender: sender, message: message }]
+    });
+  };
+
+  clearMessages = () => {
+    this.setState({ messages: [] });
   };
 
   setSendbird = sendbirdObj => {
-    this.setState({ sendbird: sendbirdObj });
-  };
-
-  updateChannel = value => {
-    this.setState({ channel: value });
+    this.setState({ sb: sendbirdObj });
   };
 
   render() {
     const { children } = this.props;
-    const { username, sendbird, channel } = this.state;
+    const { sb, messages } = this.state;
+    if (!sb) {
+      return (
+        <GlobalStateContext.Provider
+          value={{
+            sb: sb, 
+            setSendbird: this.setSendbird
+          }}
+        >
+          {children}
+        </GlobalStateContext.Provider>
+      );
+    }
     return (
       <GlobalStateContext.Provider
         value={{
-          username: username,
-          sendbird: sendbird,
-          channel: channel,
-          updateUsername: this.updateUsername,
-          setSendbird: this.setSendbird
+          username: sb.currentUser.userId,
+          sb: sb,
+          messages: messages,
+          enteredChannels: sb.OpenChannel.enteredChannels, 
+          clearMessages: this.clearMessages
         }}
       >
         {children}

@@ -16,15 +16,9 @@ const connectToSendbird = (username, setSendbird) => {
   });
 };
 
-const handleClick = (
-  username,
-  updateUsername,
-  setSendbird,
-  history
-) => async () => {
-  if (!username) return alert("enter a username");
+const handleClick = (username, setSendbird, history) => async () => {
+  if (!username) return;
   await connectToSendbird(username, setSendbird);
-  updateUsername(username);
   history.push("/channels");
 };
 
@@ -32,12 +26,12 @@ const LoginButton = props => {
   const { history, username } = props;
   return (
     <GlobalStateConsumer>
-      {({ updateUsername, setSendbird }) => (
+      {({ setSendbird }) => (
         <Button
           id="loginButton"
           variant="contained"
           color="primary"
-          onClick={handleClick(username, updateUsername, setSendbird, history)}
+          onClick={handleClick(username, setSendbird, history)}
         >
           Submit
         </Button>

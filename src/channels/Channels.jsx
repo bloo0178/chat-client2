@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import ChannelList from "./ChannelList";
+import CreateChannelButton from "./CreateChannelButton";
 
 const styles = {
   root: {
@@ -37,7 +38,9 @@ const Channels = props => {
         <div className={channelList}>
           <ChannelList history={history} />
         </div>
-        <div className={createChannel}>CreateChannel w/ history(?)</div>
+        <div className={createChannel}>
+          <CreateChannelButton history={history} />
+        </div>
       </div>
     </React.Fragment>
   );

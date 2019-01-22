@@ -4,11 +4,11 @@ import { GlobalStateConsumer } from "../common/GlobalState.context";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <GlobalStateConsumer>
-    {({ username }) => (
+    {({ sb }) => (
       <Route
         {...rest}
         render={props =>
-          username !== "" ? <Component {...props} /> : <Redirect to="/login" />
+          sb !== "" ? <Component {...props} /> : <Redirect to="/login" />
         }
       />
     )}
