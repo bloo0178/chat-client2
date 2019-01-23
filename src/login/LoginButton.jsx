@@ -3,14 +3,14 @@ import { GlobalStateConsumer } from "../common/GlobalState.context";
 import Button from "@material-ui/core/Button";
 import * as SendBird from "sendbird";
 
-const connectToSendbird = (username, setSendbird) => {
+const connectToSendbird = (username) => {
   const sb = new SendBird({ appId: process.env.REACT_APP_SB_APP_ID });
   return new Promise(resolve => {
     sb.connect(
       username,
       (user, error) => {
         if (error) return alert(error);
-        resolve(setSendbird(sb));
+        resolve(sb);
       }
     );
   });
@@ -18,25 +18,23 @@ const connectToSendbird = (username, setSendbird) => {
 
 const handleClick = (username, setSendbird, history) => async () => {
   if (!username) return;
-  await connectToSendbird(username, setSendbird);
+  let sb = await connectToSendbird(username);
+  setSendbird(sb);
+  console.log(sb);
   history.push("/channels");
 };
 
 const LoginButton = props => {
-  const { history, username } = props;
+  const { history, username, setSB } = props;
   return (
-    <GlobalStateConsumer>
-      {({ setSendbird }) => (
-        <Button
-          id="loginButton"
-          variant="contained"
-          color="primary"
-          onClick={handleClick(username, setSendbird, history)}
-        >
-          Submit
-        </Button>
-      )}
-    </GlobalStateConsumer>
+    <Button
+      id="loginButton"
+      variant="contained"
+      color="primary"
+      onClick={handleClick(username, setSB, history)}
+    >
+      Submit
+    </Button>
   );
 };
 

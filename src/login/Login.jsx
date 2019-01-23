@@ -41,6 +41,7 @@ class Login extends React.Component {
         />
         <LoginButton
           id="loginButton"
+          setSB={this.props.setSB}
           history={history}
           username={this.state.username}
         />

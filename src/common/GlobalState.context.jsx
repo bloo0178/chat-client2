@@ -10,7 +10,8 @@ export const GlobalStateConsumer = GlobalStateContext.Consumer;
 export class GlobalStateProvider extends React.Component {
   state = {
     sb: "", //sb_object
-    messages: [] // might need
+    channels: [], 
+    curChannel: '', // can remove this check in Channels if I decide to keep. Right now, used for Chat.
   };
 
   /*
@@ -21,28 +22,37 @@ export class GlobalStateProvider extends React.Component {
   messages
   */
 
-  addMessage = (sender, message) => {
-    this.setState({
-      messages: [...this.state.messages, { sender: sender, message: message }]
-    });
-  };
-
-  clearMessages = () => {
-    this.setState({ messages: [] });
-  };
 
   setSendbird = sendbirdObj => {
     this.setState({ sb: sendbirdObj });
   };
 
+  setCurChannel = curChannel => {
+    this.setState({ curChannel: curChannel })
+  };
+
+  // will use this when I create a channel, etc. Pass the channelList as props as well.
+  refreshChannelList = async (sb) => {
+    return new Promise(resolve => {
+      //let channelList;
+      const openChannelListQuery = sb.OpenChannel.createOpenChannelListQuery();
+      openChannelListQuery.next((channels, error) => {
+        if (error) return console.log(error);
+        //channelList = channels;
+        this.setState({ channels: channels });
+        resolve();
+      });
+    });
+  };
+
   render() {
     const { children } = this.props;
-    const { sb, messages } = this.state;
+    const { sb, messages, channels, curChannel } = this.state;
     if (!sb) {
       return (
         <GlobalStateContext.Provider
           value={{
-            sb: sb, 
+            sb: sb,
             setSendbird: this.setSendbird
           }}
         >
@@ -55,9 +65,11 @@ export class GlobalStateProvider extends React.Component {
         value={{
           username: sb.currentUser.userId,
           sb: sb,
-          messages: messages,
-          enteredChannels: sb.OpenChannel.enteredChannels, 
-          clearMessages: this.clearMessages
+          enteredChannels: sb.OpenChannel.enteredChannels,
+          refreshChannelList: this.refreshChannelList,
+          channels: channels,
+          curChannel: curChannel,
+          setCurChannel: this.setCurChannel
         }}
       >
         {children}
