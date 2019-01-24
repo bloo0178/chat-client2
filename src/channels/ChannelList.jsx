@@ -4,7 +4,6 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { enterChannel } from "../utils/sendbirdHelpers";
 
 const styles = {
   root: {
@@ -24,13 +23,11 @@ const ChannelList = props => {
   const {
     classes: { root, list, button },
     channels,
-    sb
+    enterChannel
   } = props;
 
   const handleClick = (channelURL) => async event => {
-    //const {sb} = props;
-    let newChannel = await enterChannel(sb, channelURL);
-    //setCurChannel(newChannel);
+    await enterChannel(channelURL);
     props.history.push(`/chat/${channelURL}`);
   };
 

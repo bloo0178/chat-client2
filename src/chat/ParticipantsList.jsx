@@ -6,12 +6,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
 const styles = {
-    root: {
-      width: 250
-    }
-  };
-  
-  const mockParticipants = ['this', 'is', 'a', 'mock', 'list']
+  root: {
+    width: 250
+  }
+};
+
+const mockParticipants = ["this", "is", "a", "mock", "list"];
 
 class ParticipantsList extends React.Component {
   // change this to a stateless component. Will it still update on recieving props?
@@ -19,10 +19,11 @@ class ParticipantsList extends React.Component {
   render() {
     const {
       classes: { root, list },
-      participants,
       open,
-      toggle
+      toggle, 
+      participants, 
     } = this.props;
+
 
     const participantList = (
       <div className={root}>
@@ -52,10 +53,5 @@ class ParticipantsList extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    participants: state.participants
-  };
-};
 
 export default withStyles(styles)(ParticipantsList);

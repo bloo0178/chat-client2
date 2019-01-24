@@ -7,11 +7,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
-import {
-  exitChannel,
-  enterChannel,
-  createChannel
-} from "../utils/sendbirdHelpers";
 
 class CreateChannelButton extends React.Component {
   constructor(props) {
@@ -38,15 +33,26 @@ class CreateChannelButton extends React.Component {
 
   createChannel = async () => {
     const { channelName } = this.state;
-    const { sb } = this.props;
-    let enteredChannels = sb.OpenChannel.enteredChannels;
+    const { sb, enterChannel } = this.props;
+    //let enteredChannels = sb.OpenChannel.enteredChannels;
     if (!channelName) return;
+    /* DON'T NEED THIS. Only allowing the user to be in one channel at a time. 
     if (Object.keys(enteredChannels).length !== 0) {
       let curChannel = enteredChannels[Object.keys(enteredChannels)[0]]; // don't like this. Redo with current channel being determined in global state.
       await exitChannel(sb, curChannel);
-    }
-    let newChannelURL = await createChannel(sb, channelName);
-    await enterChannel(sb, newChannelURL);
+    }*/
+    let newChannelURL = await (() => {
+      const userID = sb.currentUser.userId;
+      return new Promise(resolve => {
+        // Array adds the operatorID's to the channel to provide admin privs. 
+        sb.OpenChannel.createChannel(channelName, null, null, ["admin", userID], 
+        (channel, error) => {
+          if (error) return console.log(error);
+          resolve(channel.url);
+        })
+      })
+    })();
+    await enterChannel(newChannelURL);
     this.props.history.push(`/chat/${newChannelURL}`);
   };
 

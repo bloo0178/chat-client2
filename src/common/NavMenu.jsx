@@ -5,7 +5,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Link } from "react-router-dom";
 //import { logout } from "../../utils/sessionHelpers";
-import AlertDialog from "./AlertDialog"; //--> change this to context
+//import AlertDialog from "./AlertDialog"; //--> change this to context
 
 
 class NavMenu extends React.Component {
@@ -27,7 +27,7 @@ class NavMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  toggleAlert = () => {
+  /*toggleAlert = () => {
     this.setState({
       showAlert: !this.state.showAlert
     });
@@ -42,7 +42,7 @@ class NavMenu extends React.Component {
       this.handleClose();
       history.push(`/chat/${channelURL}`);
     }
-  };
+  };*/
 
   render() {
     const { anchorEl, showAlert } = this.state;
@@ -55,25 +55,25 @@ class NavMenu extends React.Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleToChat}>Chat</MenuItem>
+            {/*<MenuItem onClick={this.handleToChat}>Chat</MenuItem>
             <MenuItem
               onClick={this.handleClose}
               component={Link}
               to={"/channels"}
             >
               Channels
-            </MenuItem>
+    </MenuItem>*/}
             <MenuItem onClick={() => {}} component={Link} to={"/login"}>
               Logout
             </MenuItem>
           </Menu>
         </IconButton>
-        <AlertDialog
+        {/*<AlertDialog
           title={"No channel selected."}
           message={"You need to select a channel before you can chat."}
           showAlert={showAlert}
           toggleAlert={this.toggleAlert}
-        />
+        />*/}
       </React.Fragment>
     );
   }

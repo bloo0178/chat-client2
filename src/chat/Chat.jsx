@@ -1,152 +1,125 @@
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import MessageInput from "./MessageInput"; // MessageInput == CreateMessage
-import MessagesDisplay from "./MessagesDisplay";
 import { withStyles } from "@material-ui/core/styles";
-//import { exitChannel, addChannelHandler } from '../utils/sendbirdHelpers';
-import {
-  getMessages,
-  getChannel,
-  getParticipantList
-} from "../utils/sendbirdHelpers";
-import ChatHeader from "./ChatHeader"; // ChannelHeader == InfoBar
-import ChatMenu from "./ChatMenu"; // ChannelMenu == OptionsMenu
+import ChatHeader from "./ChatHeader"; 
+import ChatMenu from "./ChatMenu";
 import NavBar from "../common/NavBar";
-
-const styles = {
-  root: {
-    width: "100%",
-    height: "90vh", // maybe position at bottom?
-    display: "flex",
-    flexFlow: "column",
-    justifyContent: "flex-end"
-  },
-  displayMessages: {
-    overflowY: "auto"
-  },
-  createMessage: {
-    width: "100%"
-  },
-  infoContainer: {
-    maxHeight: "7vh",
-    minHeight: "7vh",
-    marginBottom: "auto",
-    display: "flex",
-    flexFlow: "row",
-    alignItems: "center",
-    paddingLeft: "10px",
-    paddingRight: "10px"
-  },
-  loadingSpinner: {
-    height: "90vh", // maybe position at bottom?
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-};
+import styles from "./styles";
+import MessagesContainer from "./MessagesContainer";
 
 class Chat extends React.Component {
   state = {
-    loading: true,
+    loading: true, 
     channel: "",
-    messages: [],
+    newMessage: "",
     channelName: "",
     participants: []
   };
 
-  onUnload = event => {
-    event.preventDefault();
-    //exitChannel(); // this might need to be logout
-    // Chrome requires returnValue to be set
-    event.returnValue = "";
+  getParticipantList = channel => {
+    let list = [];
+    const participantListQuery = channel.createParticipantListQuery();
+    participantListQuery.next((participantList, error) => {
+      if (error) return console.log(error);
+      participantList.map(participant => {
+        return list.push(participant.userId);
+      });
+    });
+    return list;
   };
 
   addChannelHandler = (sb, channel) => {
     const ChannelHandler = new sb.ChannelHandler();
     const channelHandlerID = channel.url;
-
     ChannelHandler.onUserEntered = (openChannel, user) => {
-      //why does this return openChannel (and user)?
-      const participantList = getParticipantList(channel);
+      //why does this return openChannel?
+      const participantList = this.getParticipantList(channel);
+      const newMessage = {
+        sender: "info",
+        message: `${user.userId} has joined.`
+      };
       this.setState({
         participants: participantList,
-        messages: [
-          ...this.state.messages,
-          { sender: "info", message: `${user.userId} has joined.` }
-        ]
+        newMessage: newMessage
       });
     };
     ChannelHandler.onUserExited = (openChannel, user) => {
-      const participantList = getParticipantList(channel);
+      const participantList = this.getParticipantList(channel);
+      const newMessage = {
+        sender: "info",
+        message: `${user.userId} has left.`
+      };
       this.setState({
         participants: participantList,
-        messages: [
-          ...this.state.messages,
-          { sender: "info", message: `${user.userId} has left.` }
-        ]
+        newMessage: newMessage
       });
     };
     ChannelHandler.onMessageReceived = (channel, message) => {
-      let mappedMessage = this.mapMessage(message);
       this.setState({
-        messages: [...this.state.messages, mappedMessage]
-      })
+        newMessage: message
+      });
     };
     // Add channel event handler to the SendBird object.
     sb.addChannelHandler(channelHandlerID, ChannelHandler);
   };
 
-  mapMessage = rawMessage => {
-    const { sb } = this.props;
-    let currentUser = sb.currentUser.userId;
-    let sender = rawMessage._sender.userId;
-    let message = rawMessage.message;
-    if (sender === currentUser) {
-      return { sender: "You", message: message };
-    }
-    // need to figure out how info messages will come in...
-    // don't think I need to do this here - it's handled in the channelHandler
-    else {
-      return { sender: sender, message: message };
-    }
-  };
-
   async componentDidMount() {
     const { sb } = this.props;
     const channelURL = this.props.match.params.channelURL;
-    const channel = await getChannel(sb, channelURL);
-    this.setState({ channel: channel, channelName: channel.name });
-    let rawMessages = await getMessages(channel);
-    let mappedMessages = rawMessages.map(message => {
-      return this.mapMessage(message);
-    });
-    this.setState({
-      messages: mappedMessages
-    });
+    const channel = await this.getChannel(sb, channelURL);
     this.addChannelHandler(sb, channel);
-    // need to addChannelHandler();
-    this.setState({ loading: false });
     window.addEventListener("beforeunload", this.onUnload);
+    this.setState({
+      channel: channel,
+      channelName: channel.name,
+      loading: false
+    });
   }
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onUnload);
   }
 
+  getChannel = (sb, channelURL) => {
+    return new Promise(resolve => {
+      sb.OpenChannel.getChannel(channelURL, (channel, error) => {
+        if (error) return error;
+        resolve(channel);
+      });
+    });
+  };
+
+  onUnload = event => {
+    event.preventDefault();
+    this.exitChannel(this.props.sb, this.state.channel); // this might need to be logout
+    // Chrome requires returnValue to be set
+    event.returnValue = "";
+  };
+
+  updateParticipants = participantsList => {
+    this.setState({ participants: participantsList });
+  };
+
+  exitChannel = curChannel => {
+    const { sb } = this.props;
+    return new Promise(resolve => {
+      sb.removeChannelHandler(curChannel.url);
+      curChannel.exit((response, error) => {
+        if (error) console.log(error);
+        resolve(() => console.log("success"));
+      });
+    });
+  };
+
   render() {
     const {
-      classes: {
-        loadingSpinner,
-        infoContainer,
-        root,
-        displayMessages,
-        createMessage
-      },
-      history
+      classes: { loadingSpinner, chatHeader, chatContainer },
+      history,
+      sb
     } = this.props;
-    const { channelName, messages, loading } = this.state;
+    const { channelName, newMessage, loading, channel } = this.state;
 
-    if (loading === true) {
+    if (loading === true) { 
       return (
         <div className={loadingSpinner}>
           <CircularProgress />
@@ -157,18 +130,17 @@ class Chat extends React.Component {
     return (
       <React.Fragment>
         <NavBar history={history} />
-        <div className={root}>
-          <div className={infoContainer}>
+        <div className={chatContainer}>
+          <div className={chatHeader}>
             <ChatHeader title={channelName} history={history}>
-              <ChatMenu history={history} />
+              <ChatMenu history={history} sb={sb} channel={channel} />
             </ChatHeader>
           </div>
-          <div className={displayMessages}>
-            <MessagesDisplay messages={messages} />
-          </div>
-          <div className={createMessage}>
-            <MessageInput />
-          </div>
+          <MessagesContainer
+            channel={channel}
+            sb={sb}
+            newMessage={newMessage}
+          />
         </div>
       </React.Fragment>
     );

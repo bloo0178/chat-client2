@@ -9,6 +9,7 @@ import ParticipantsList from "./ParticipantsList";
   deleteChannel,
   isOperator
 } from "../../../utils/channelHelpers";*/
+//import { exitChannel } from "../utils/sendbirdGeneralHelpers";
 import { withStyles } from "@material-ui/core/styles";
 import { SharedSnackbarConsumer } from "../common/SharedSnackbar.context";
 
@@ -44,8 +45,8 @@ class ChatMenu extends React.Component {
   };
 
   handleLeave = () => {
-    //exitChannel();
-    this.props.history.push("/channels");
+    //exitChannel(this.props.sb, this.props.channel);
+    //this.props.history.push("/channels");
   };
 
   handleDelete = openSnackbar => async () => {
@@ -94,6 +95,8 @@ class ChatMenu extends React.Component {
         <ParticipantsList
           open={toggleParticipants}
           toggle={this.toggleParticipants}
+          sb={this.props.sb}
+          channel={this.props.channel}
         />
       </React.Fragment>
     );

@@ -30,14 +30,25 @@ class MessageInput extends React.Component {
     this.setState({ message: event.target.value });
   }
 
+
+ sendMessage = (channel, message) => {
+    channel.sendUserMessage(message, (message, error) => {
+      if (error) return console.log(error);
+    });
+  };
+
   handleClick = () => {
-    //sendMessage(this.state.message);
+    const {channel, addMessage} = this.props;
+    const {message} = this.state;
+    this.sendMessage(channel, message)
+    let newMessage = {sender: "You", message: message};
+    addMessage(newMessage);
     this.setState({ message: "" });
   }
 
   render() {
     const {
-      classes: { root, textField }
+      classes: { root, textField } 
     } = this.props;
     const { message } = this.state;
     let color;

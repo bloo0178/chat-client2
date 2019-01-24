@@ -41,6 +41,20 @@ class Channels extends React.Component {
     });
   }
 
+  enterChannel = channelURL => {
+    const { sb } = this.props;
+    return new Promise(async resolve => {
+      sb.OpenChannel.getChannel(channelURL, (channel, error) => {
+        if (error) return console.log(error);
+        channel.enter((response, error) => {
+          if (error) return console.log(error);
+          console.log(channel);
+          resolve(channel);
+        });
+      });
+    });
+  };
+
   render() {
     const {
       classes: { root, createChannel, channelList },
@@ -55,12 +69,16 @@ class Channels extends React.Component {
           <div className={channelList}>
             <ChannelList
               history={history}
-              sb={sb}
               channels={channels}
+              enterChannel={this.enterChannel}
             />
           </div>
           <div className={createChannel}>
-            <CreateChannelButton sb={sb} history={history} />
+            <CreateChannelButton
+              sb={sb}
+              history={history}
+              enterChannel={this.enterChannel}
+            />
           </div>
         </div>
       </React.Fragment>
