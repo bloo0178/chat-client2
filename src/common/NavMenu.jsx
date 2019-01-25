@@ -4,9 +4,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Link } from "react-router-dom";
-//import { logout } from "../../utils/sessionHelpers";
-//import AlertDialog from "./AlertDialog"; //--> change this to context
-
+import { getChannel, exitChannel } from '../utils/sendbirdHelpers';
 
 class NavMenu extends React.Component {
   constructor(props) {
@@ -31,18 +29,19 @@ class NavMenu extends React.Component {
     this.setState({
       showAlert: !this.state.showAlert
     });
+  };*/
+
+  handleLogout = async () => {
+    const { sb, match } = this.props;
+    if (match) {
+      const channelURL = match.params.channelURL;
+      let channel = await getChannel(sb, channelURL);
+      await exitChannel(channel);
+    }
+    sb.disconnect();
   };
 
-  handleToChat = () => {
-    const { channelURL, history } = this.props;
-    if (!channelURL) {
-      this.handleClose();
-      this.toggleAlert();
-    } else {
-      this.handleClose();
-      history.push(`/chat/${channelURL}`);
-    }
-  };*/
+
 
   render() {
     const { anchorEl, showAlert } = this.state;
@@ -55,15 +54,7 @@ class NavMenu extends React.Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            {/*<MenuItem onClick={this.handleToChat}>Chat</MenuItem>
-            <MenuItem
-              onClick={this.handleClose}
-              component={Link}
-              to={"/channels"}
-            >
-              Channels
-    </MenuItem>*/}
-            <MenuItem onClick={() => {}} component={Link} to={"/login"}>
+            <MenuItem onClick={this.handleLogout} component={Link} to={"/login"}>
               Logout
             </MenuItem>
           </Menu>
@@ -78,6 +69,5 @@ class NavMenu extends React.Component {
     );
   }
 }
-
 
 export default NavMenu;

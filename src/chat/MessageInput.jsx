@@ -1,22 +1,10 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-//import { sendMessage } from "../../utils/channelHelpers";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SendIcon from "@material-ui/icons/SendRounded";
 import IconButton from "@material-ui/core/IconButton";
-
-const styles = {
-    root: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      margin: "auto"
-    },
-    textField: {
-      width: "60%"
-    }
-  }
+import styles from './styles';
 
 class MessageInput extends React.Component {
   constructor(props) {
@@ -48,7 +36,7 @@ class MessageInput extends React.Component {
 
   render() {
     const {
-      classes: { root, textField } 
+      classes: { messageInputContainer, messageInputTextField } 
     } = this.props;
     const { message } = this.state;
     let color;
@@ -56,13 +44,13 @@ class MessageInput extends React.Component {
     !message ? (color = "default") : (color = "primary");
 
     return (
-      <div className={root}>
+      <div className={messageInputContainer}>
         <TextField
           multiline
           rowsMax="4"
           value={message}
           onChange={this.handleChange}
-          className={textField}
+          className={messageInputTextField}
           margin="normal"
           variant="outlined"
           InputProps={{

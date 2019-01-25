@@ -4,21 +4,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ParticipantsList from "./ParticipantsList";
-/*import {
-  exitChannel,
-  deleteChannel,
-  isOperator
-} from "../../../utils/channelHelpers";*/
-//import { exitChannel } from "../utils/sendbirdGeneralHelpers";
 import { withStyles } from "@material-ui/core/styles";
 import { SharedSnackbarConsumer } from "../common/SharedSnackbar.context";
-
-const styles = {
-    deleteButton: {
-      color: "red"
-    }
-  };
-  
+import {exitChannel} from '../utils/sendbirdHelpers';
+import styles from './styles';
 
 class ChatMenu extends React.Component {
   constructor(props) {
@@ -30,9 +19,14 @@ class ChatMenu extends React.Component {
     };
   }
 
+  isOperator = () => {
+    const { channel, sb } = this.props;
+    return channel.isOperatorWithUserId(sb.getCurrentUserId());
+  };
+
   componentDidMount() {
     this.setState({
-      //disableDelete: !isOperator()
+      disableDelete: !this.isOperator()
     });
   }
 
@@ -45,13 +39,26 @@ class ChatMenu extends React.Component {
   };
 
   handleLeave = () => {
-    //exitChannel(this.props.sb, this.props.channel);
-    //this.props.history.push("/channels");
+    const { channel, history } = this.props;
+    exitChannel(channel);
+    history.push("/channels");
+  };
+
+  deleteChannel = () => {
+    const { channel, sb } = this.props;
+    const channelHandlerID = channel.url;
+    return new Promise(resolve => {
+      channel.delete((response, error) => {
+        if (error) return console.log(error);
+        sb.removeChannelHandler(channelHandlerID);
+        resolve();
+      });
+    });
   };
 
   handleDelete = openSnackbar => async () => {
     const { channel, history } = this.props;
-   // await deleteChannel();
+    await this.deleteChannel();
     history.push("/channels");
     openSnackbar(`Channel ${channel.name} deleted.`);
   };
@@ -65,7 +72,9 @@ class ChatMenu extends React.Component {
 
   render() {
     const {
-      classes: { deleteButton }
+      classes: { deleteButton },
+      participants,
+      channel
     } = this.props;
     const { anchorEl, disableDelete, toggleParticipants } = this.state;
     const open = Boolean(anchorEl);
@@ -82,34 +91,29 @@ class ChatMenu extends React.Component {
           <MenuItem onClick={this.handleLeave}>Leave Channel</MenuItem>
           <SharedSnackbarConsumer>
             {({ openSnackbar }) => (
-            <MenuItem
-              disabled={disableDelete}
-              onClick={this.handleDelete(openSnackbar)}
-              className={deleteButton}
-            >
-              Delete Channel
-            </MenuItem>
+              <MenuItem
+                disabled={disableDelete}
+                onClick={this.handleDelete(openSnackbar)}
+                className={deleteButton}
+              >
+                Delete Channel
+              </MenuItem>
             )}
           </SharedSnackbarConsumer>
         </Menu>
         <ParticipantsList
           open={toggleParticipants}
           toggle={this.toggleParticipants}
-          sb={this.props.sb}
-          channel={this.props.channel}
+          channel={channel}
+          participants={participants}
         />
       </React.Fragment>
     );
   }
 }
 
-ChatMenu.contextType = SharedSnackbarConsumer; // what does this do???? Can you use this to avoid having the wrapper?
-
-const mapStateToProps = state => {
-  return {
-    channel: state.channel.channel,
-    messages: state.messages
-  };
-};
+/*
+ *  Can you share context here??
+ */
 
 export default withStyles(styles)(ChatMenu);

@@ -1,18 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { GlobalStateConsumer } from "../common/GlobalState.context";
 
-const ProtectedRoute = ({ component: Component, ...props }) => (
-  <GlobalStateConsumer>
-    {({ sb }) => (
-      <Route
-        {...props}
-        render={props =>
-          sb !== "" ? <Component {...props} /> : <Redirect to="/login" />
-        }
-      />
-    )}
-  </GlobalStateConsumer>
+const ProtectedRoute = ({ component: Component, sb, ...props }) => (
+  <Route
+    {...props}
+    render={props =>
+      sb !== "" ? <Component sb={sb} {...props} /> : <Redirect to="/login" />
+    }
+  />
 );
 
 export default ProtectedRoute;

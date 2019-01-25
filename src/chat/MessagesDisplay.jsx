@@ -1,15 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import MessageBubble from "./MessageBubble";
-
-const styles = {
-    messageList: {
-      listStyle: "none",
-      padding: 0 // gets rid of the indent
-    }
-  }
-
-  const mockMessages = [{sender: 'You', message: 'test1'}, {sender: 'someone', message: 'test2'}]
+import styles from './styles';
 
 class MessagesDisplay extends React.Component {
   constructor(props) {

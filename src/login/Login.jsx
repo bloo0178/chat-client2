@@ -2,16 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import LoginButton from "./LoginButton";
-
-const styles = {
-  loginContainer: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
-  }
-};
+import styles from './styles';
 
 class Login extends React.Component {
   state = {

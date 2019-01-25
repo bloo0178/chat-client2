@@ -3,29 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ChannelList from "./ChannelList";
 import CreateChannelButton from "./CreateChannelButton";
 import NavBar from "../common/NavBar";
-
-const styles = {
-  root: {
-    width: "100%",
-    display: "flex",
-    direction: "column",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  channelList: {
-    width: "75%",
-    minWidth: 300,
-    maxWidth: 600,
-    padding: "3rem",
-    justifyContent: "center"
-  },
-  createChannel: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    margin: 15
-  }
-};
+import styles from "./styles";
 
 class Channels extends React.Component {
   state = {
@@ -57,15 +35,15 @@ class Channels extends React.Component {
 
   render() {
     const {
-      classes: { root, createChannel, channelList },
+      classes: { channelsContainer, createChannel, channelList },
       history,
       sb
     } = this.props;
     const { channels } = this.state;
     return (
       <React.Fragment>
-        <NavBar history={history} />
-        <div className={root}>
+        <NavBar history={history} sb={sb}/>
+        <div className={channelsContainer}>
           <div className={channelList}>
             <ChannelList
               history={history}

@@ -9,7 +9,12 @@ class MessagesContainer extends React.Component {
     messages: []
   };
 
-  async componentDidMount() {
+  /*
+  * Potentially move this up to <Chat />. Or figure out 
+  * a better way to handle loading here in addition to 
+  * loading in <Chat />
+  */
+  async componentDidMount() { 
     const { sb, channel } = this.props;
     this.setState({ channel: channel, channelName: channel.name });
     let rawMessages = await this.getMessages(channel);
@@ -22,11 +27,11 @@ class MessagesContainer extends React.Component {
     window.addEventListener("beforeunload", this.onUnload);
   }
 
-  getMessages = channel => {
+  getMessages = channel => { 
     return new Promise(resolve => {
       let messageListQuery = channel.createPreviousMessageListQuery();
       messageListQuery.limit = 30;
-      messageListQuery.reverse = true;
+      messageListQuery.reverse = false;
       messageListQuery.load((messageList, error) => {
         if (error) return error;
         resolve(messageList);
@@ -34,13 +39,20 @@ class MessagesContainer extends React.Component {
     });
   };
 
+  /*
+  * Will need to add timestamp to newMessage. Right now it's only message + user. 
+  * This is not a unique ID because there is nothing preventing duplicate users.
+  */
   componentDidUpdate(prevProps) {
-    if (this.props.newMessage !== prevProps.newMessage) { // will need to add timestamp, could have same messages
+    if (this.props.newMessage !== prevProps.newMessage) { 
       this.addMessage(this.props.newMessage);
     }
   }
 
-  transformMessage = (rawMessage, sb) => { // combine this into addMessage
+  /*
+  * Combine this into addMessage. Clean this up.
+  */
+  transformMessage = (rawMessage, sb) => { 
     let message = rawMessage.message;
     let currentUser = sb.currentUser.userId;
     let sender = rawMessage._sender.userId;

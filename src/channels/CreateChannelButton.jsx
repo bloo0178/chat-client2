@@ -12,7 +12,7 @@ class CreateChannelButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false, //change to open
+      isOpen: false, 
       channelName: ""
     };
   }
@@ -34,13 +34,7 @@ class CreateChannelButton extends React.Component {
   createChannel = async () => {
     const { channelName } = this.state;
     const { sb, enterChannel } = this.props;
-    //let enteredChannels = sb.OpenChannel.enteredChannels;
     if (!channelName) return;
-    /* DON'T NEED THIS. Only allowing the user to be in one channel at a time. 
-    if (Object.keys(enteredChannels).length !== 0) {
-      let curChannel = enteredChannels[Object.keys(enteredChannels)[0]]; // don't like this. Redo with current channel being determined in global state.
-      await exitChannel(sb, curChannel);
-    }*/
     let newChannelURL = await (() => {
       const userID = sb.currentUser.userId;
       return new Promise(resolve => {

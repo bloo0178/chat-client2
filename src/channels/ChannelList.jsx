@@ -4,24 +4,11 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-
-const styles = {
-  root: {
-    textAlign: "center"
-  },
-  list: {
-    maxHeight: "70vh",
-    overflowY: "auto"
-  },
-  button: {
-    width: "100%",
-    padding: "1rem"
-  }
-};
+import styles from './styles';
 
 const ChannelList = props => {
   const {
-    classes: { root, list, button },
+    classes: { channelListContainer, channelButtonList, channelButton },
     channels,
     enterChannel
   } = props;
@@ -32,10 +19,10 @@ const ChannelList = props => {
   };
 
   return (
-    <div className={root}>
+    <div className={channelListContainer}>
       <Paper>
         <List
-          className={list}
+          className={channelButtonList}
           subheader={<ListSubheader color="primary">Channels</ListSubheader>}
         >
           {channels.map((channel, index) => {
@@ -44,7 +31,7 @@ const ChannelList = props => {
               <div key={name + index.toString()}>
                 <Button
                   onClick={handleClick(url)}
-                  className={button}
+                  className={channelButton}
                 >
                   {name}
                 </Button>

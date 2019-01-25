@@ -1,5 +1,4 @@
 import React from "react";
-import { GlobalStateConsumer } from "../common/GlobalState.context";
 import Button from "@material-ui/core/Button";
 import * as SendBird from "sendbird";
 

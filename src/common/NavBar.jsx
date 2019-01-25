@@ -17,7 +17,7 @@ const styles = {
 const Navbar = props => {
   const {
     classes: { root, grow, menuIcon },
-    history
+    history, sb, match
   } = props;
 
   return (
@@ -28,7 +28,7 @@ const Navbar = props => {
             react.chat
           </Typography>
           <div className={menuIcon}>
-            <NavMenu history={history} />
+            <NavMenu history={history} sb={sb} match={match}/>
           </div>
         </Toolbar>
       </AppBar>
