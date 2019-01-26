@@ -6,39 +6,44 @@ import {
   fireEvent,
   cleanup,
   waitForElement
-} from "../test-utils";
+} from "react-testing-library";
 import Login from "../login/Login";
-import LoginButton from '../login/LoginButton';
-
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
+import LoginButton from "../login/LoginButton";
+import { createMemoryHistory } from "history";
 
 
-/*const setup = () => {
-  const utils = render(<Login />);
-  const login = utils.getByLabelText("Username");
-  return { login, ...utils };
-};*/
+describe("Login", () => {
 
-afterEach(cleanup());
+  afterEach(cleanup);
 
-test("does this work?", () => {
-    //const {login} = setup();
-    const usernameInput = render(<Login />)
-    .getByLabelText("Username");
-    fireEvent.change(usernameInput, {target: {value: 'testing'}})
-    expect(usernameInput.value).toBe('testing');
+  test("does entering a username work", () => {
+    const usernameInput = render(<Login />).getByLabelText("Username");
+    fireEvent.change(usernameInput, { target: { value: "testing" } });
+    expect(usernameInput.value).toBe("testing");
+  });
+
+  test("does the login button render", () => {
+    const loginButton = render(<LoginButton />).getByText("Submit");
+    expect(loginButton).toBeDefined();
+  });
 });
 
-test("does the login button redirect", () => {
-  global.window = { location: { pathname: null}};
-  const usernameInput = render(<Login />)
-    .getByLabelText("Username");
-    fireEvent.change(usernameInput, {target: {value: 'testing'}})
-    const loginButton = render(<Login />)
-    .getByText("Submit");
+describe("Login Button", () => {
+  test("does it redirect?", () => {
+    //global.window = { location: { pathname: null } };
+    const history = createMemoryHistory({
+      initialEntries: ["/"]
+    });
+    const props ={
+      history: history,
+      username: 'test', 
+      setSB: jest.fn(),
+    }
+    const loginButton = render(<LoginButton {...props}/>).getByText("Submit");
     fireEvent.click(loginButton);
-    //expect(loginButton).toHaveLength(1);
-    expect(global.window.location.pathname).toEqual('/channels');
-});
-
+    //history.push("/channels");
+    //console.log(history);
+    expect(history.location.pathname).toEqual("/channels");
+    //expect(global.window.location.pathname).toEqual("/channels");
+  })
+})

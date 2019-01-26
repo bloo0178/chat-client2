@@ -3,6 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { getChannel, exitChannel } from '../utils/sendbirdHelpers';
 
@@ -47,8 +48,8 @@ class NavMenu extends React.Component {
     const { anchorEl, showAlert } = this.state;
     return (
       <React.Fragment>
-        <IconButton color="inherit">
-          <MenuIcon onClick={this.handleOpen} />
+        <IconButton color="inherit" onClick={this.handleOpen}>
+          <MenuIcon  />
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}

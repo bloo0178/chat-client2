@@ -12,7 +12,7 @@ class CreateChannelButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false, 
+      isOpen: false,
       channelName: ""
     };
   }
@@ -38,13 +38,18 @@ class CreateChannelButton extends React.Component {
     let newChannelURL = await (() => {
       const userID = sb.currentUser.userId;
       return new Promise(resolve => {
-        // Array adds the operatorID's to the channel to provide admin privs. 
-        sb.OpenChannel.createChannel(channelName, null, null, ["admin", userID], 
-        (channel, error) => {
-          if (error) return console.log(error);
-          resolve(channel.url);
-        })
-      })
+        // Array adds the operatorID's to the channel to provide admin privs.
+        sb.OpenChannel.createChannel(
+          channelName,
+          null,
+          null,
+          ["admin", userID],
+          (channel, error) => {
+            if (error) return console.log(error);
+            resolve(channel.url);
+          }
+        );
+      });
     })();
     await enterChannel(newChannelURL);
     this.props.history.push(`/chat/${newChannelURL}`);
@@ -53,7 +58,11 @@ class CreateChannelButton extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Fab color="primary" onClick={this.handleClick}>
+        <Fab
+          data-testid="create-channel-button"
+          color="primary"
+          onClick={this.handleClick}
+        >
           <AddIcon />
         </Fab>
         <Dialog open={this.state.isOpen} onClose={this.handleClose}>
