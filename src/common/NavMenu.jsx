@@ -48,8 +48,8 @@ class NavMenu extends React.Component {
     const { anchorEl, showAlert } = this.state;
     return (
       <React.Fragment>
-        <IconButton color="inherit" onClick={this.handleOpen}>
-          <MenuIcon  />
+        <IconButton color="inherit"  >
+          <MenuIcon onClick={this.handleOpen} />
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}

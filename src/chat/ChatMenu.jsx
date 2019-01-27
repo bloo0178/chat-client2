@@ -57,6 +57,7 @@ class ChatMenu extends React.Component {
   };
 
   handleDelete = openSnackbar => async () => {
+    if (!this.isOperator()) return;
     const { channel, history } = this.props;
     await this.deleteChannel();
     history.push("/channels");
@@ -81,7 +82,7 @@ class ChatMenu extends React.Component {
 
     return (
       <React.Fragment>
-        <IconButton onClick={this.handleClick}>
+        <IconButton data-testid={"chatMenuButton"} onClick={this.handleClick}>
           <MoreVertIcon />
         </IconButton>
         <Menu anchorEl={anchorEl} open={open} onClose={this.handleClose}>

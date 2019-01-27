@@ -6,8 +6,8 @@ const ChatHeader = props => {
   const { title, children } = props;
 
   return (
-    <React.Fragment>
-      <Toolbar>
+    <React.Fragment >
+      <Toolbar data-testid="ChatHeader">
         <Typography variant="h6" color="inherit">
           {title}
         </Typography>
