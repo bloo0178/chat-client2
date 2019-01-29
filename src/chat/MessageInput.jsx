@@ -4,39 +4,38 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SendIcon from "@material-ui/icons/SendRounded";
 import IconButton from "@material-ui/core/IconButton";
-import styles from './styles';
+import styles from "./styles";
 
 class MessageInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: ""
-    }
+    };
   }
 
   handleChange = event => {
     this.setState({ message: event.target.value });
-  }
+  };
 
-
- sendMessage = (channel, message) => {
+  sendMessage = (channel, message) => {
     channel.sendUserMessage(message, (message, error) => {
       if (error) return console.log(error);
     });
   };
 
   handleClick = () => {
-    const {channel, addMessage} = this.props;
-    const {message} = this.state;
-    this.sendMessage(channel, message)
-    let newMessage = {sender: "You", message: message};
+    const { channel, addMessage } = this.props;
+    const { message } = this.state;
+    this.sendMessage(channel, message);
+    let newMessage = { _sender: { userId: "You" }, message: message };
     addMessage(newMessage);
     this.setState({ message: "" });
-  }
+  };
 
   render() {
     const {
-      classes: { messageInputContainer, messageInputTextField } 
+      classes: { messageInputContainer, messageInputTextField }
     } = this.props;
     const { message } = this.state;
     let color;
@@ -68,7 +67,7 @@ class MessageInput extends React.Component {
           }}
         />
       </div>
-    )
+    );
   }
 }
 

@@ -31,11 +31,21 @@ exports[`<Chat /> it renders after loading 1`] = `
         />
       </ChatHeader>
     </div>
-    <WithStyles(MessagesContainer)
-      channel={Object {}}
-      newMessage=""
-      sb={[MockFunction]}
-    />
+    <div
+      className="Chat-messagesDisplay-6"
+    >
+      <WithStyles(MessagesDisplay)
+        messages={Array []}
+      />
+    </div>
+    <div
+      className="Chat-createMessage-2"
+    >
+      <WithStyles(MessageInput)
+        addMessage={[Function]}
+        channel={Object {}}
+      />
+    </div>
   </div>
 </Fragment>
 `;

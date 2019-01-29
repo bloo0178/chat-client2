@@ -22,7 +22,7 @@ export const addChannelHandler = (
     //why does this return openChannel?
     const participantList = getParticipantList(channel);
     const newMessage = {
-      _sender: {userId: "info"},
+      sender: "info",
       message: `${user.userId} has joined.`
     };
     updateParticipants(participantList);
@@ -31,7 +31,7 @@ export const addChannelHandler = (
   ChannelHandler.onUserExited = (openChannel, user) => {
     const participantList = getParticipantList(channel);
     const newMessage = {
-      _sender: {userId: "info"},
+      sender: "info",
       message: `${user.userId} has left.`
     };
     updateParticipants(participantList);

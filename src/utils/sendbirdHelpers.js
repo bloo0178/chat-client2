@@ -19,3 +19,15 @@ export const getChannel = (sb, channelURL) => {
     });
   });
 };
+
+export const getMessages = channel => { 
+  return new Promise(resolve => {
+    let messageListQuery = channel.createPreviousMessageListQuery();
+    messageListQuery.limit = 30;
+    messageListQuery.reverse = false;
+    messageListQuery.load((messageList, error) => {
+      if (error) return error;
+      resolve(messageList);
+    });
+  });
+};

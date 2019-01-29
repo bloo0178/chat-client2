@@ -5,15 +5,16 @@ import ChatHeader from "./ChatHeader";
 import ChatMenu from "./ChatMenu";
 import NavBar from "../common/NavBar";
 import styles from "./styles";
-import MessagesContainer from "./MessagesContainer";
+import MessageInput from "./MessageInput";
+import MessagesDisplay from "./MessagesDisplay";
 import { addChannelHandler } from "../utils/channelHandler";
-import {getChannel, exitChannel} from '../utils/sendbirdHelpers';
+import { getChannel, exitChannel, getMessages } from "../utils/sendbirdHelpers";
 
 class Chat extends React.Component {
   state = {
     loading: true,
     channel: "",
-    newMessage: "",
+    messages: [],
     channelName: "",
     participants: []
   };
@@ -22,13 +23,18 @@ class Chat extends React.Component {
     const { sb } = this.props;
     const channelURL = this.props.match.params.channelURL;
     const channel = await getChannel(sb, channelURL);
-    addChannelHandler(sb, channel, this.updateParticipants, this.addNewMessage);
+    let prevMessages = await getMessages(channel);
+    prevMessages = prevMessages.map(message => {
+      return this.transformMessage(message);
+    })
     window.addEventListener("beforeunload", this.onUnload);
     this.setState({
       channel: channel,
       channelName: channel.name,
+      messages: prevMessages,
       loading: false
     });
+    addChannelHandler(sb, channel, this.updateParticipants, this.addNewMessage);
   }
 
   componentWillUnmount() {
@@ -47,21 +53,41 @@ class Chat extends React.Component {
   };
 
   addNewMessage = newMessage => {
+    let transformedMessage = this.transformMessage(newMessage);
     this.setState({
-      newMessage: newMessage
+      messages: [...this.state.messages, transformedMessage]
     });
   };
 
+  transformMessage = (messageObj) => {
+    const {sb} = this.props;
+    const messageContent = messageObj.message;
+    const userName = sb.currentUser.userId;
+    const senderName = messageObj._sender.userId;
+    // This check is needed when loading previous messages, 
+    // as they won't be tagged with "You" for the senderName.
+    if (senderName === userName) { 
+      return { sender: "You", message: messageContent}
+    }
+    return { sender: senderName, message: messageContent }
+  }
+
   render() {
     const {
-      classes: { loadingSpinner, chatHeader, chatContainer },
+      classes: {
+        loadingSpinner,
+        chatHeader,
+        chatContainer,
+        messagesDisplay,
+        createMessage
+      },
       history,
-      sb, 
+      sb,
       match
     } = this.props;
     const {
       channelName,
-      newMessage,
+      messages,
       loading,
       channel,
       participants
@@ -77,7 +103,7 @@ class Chat extends React.Component {
 
     return (
       <React.Fragment>
-        <NavBar history={history} sb={sb} match={match}/>
+        <NavBar history={history} sb={sb} match={match} />
         <div className={chatContainer}>
           <div className={chatHeader}>
             <ChatHeader title={channelName}>
@@ -89,11 +115,12 @@ class Chat extends React.Component {
               />
             </ChatHeader>
           </div>
-          <MessagesContainer
-            channel={channel}
-            sb={sb}
-            newMessage={newMessage}
-          />
+          <div className={messagesDisplay}>
+            <MessagesDisplay messages={messages} />
+          </div>
+          <div className={createMessage}>
+            <MessageInput channel={channel} addMessage={this.addNewMessage} />
+          </div>
         </div>
       </React.Fragment>
     );
