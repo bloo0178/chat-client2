@@ -3,16 +3,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { getChannel, exitChannel } from '../utils/sendbirdHelpers';
+import { getChannel, exitChannel } from "../utils/sendbirdHelpers";
 
 class NavMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      anchorEl: null,
-      showAlert: false
+      anchorEl: null
     };
   }
 
@@ -26,12 +24,6 @@ class NavMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  /*toggleAlert = () => {
-    this.setState({
-      showAlert: !this.state.showAlert
-    });
-  };*/
-
   handleLogout = async () => {
     const { sb, match } = this.props;
     if (match) {
@@ -42,30 +34,26 @@ class NavMenu extends React.Component {
     sb.disconnect();
   };
 
-
-
   render() {
-    const { anchorEl, showAlert } = this.state;
+    const { anchorEl } = this.state;
     return (
       <React.Fragment>
-        <IconButton color="inherit"  >
+        <IconButton color="inherit">
           <MenuIcon onClick={this.handleOpen} />
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleLogout} component={Link} to={"/login"}>
+            <MenuItem
+              onClick={this.handleLogout}
+              component={Link}
+              to={"/login"}
+            >
               Logout
             </MenuItem>
           </Menu>
         </IconButton>
-        {/*<AlertDialog
-          title={"No channel selected."}
-          message={"You need to select a channel before you can chat."}
-          showAlert={showAlert}
-          toggleAlert={this.toggleAlert}
-        />*/}
       </React.Fragment>
     );
   }

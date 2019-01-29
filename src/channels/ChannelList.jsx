@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import styles from "./styles";
 
 class ChannelList extends React.PureComponent {
-  handleClick = channelURL => async event => {
+  handleClick = (channelURL) => async event => {
     const { history, enterChannel } = this.props;
     await enterChannel(channelURL);
     history.push(`/chat/${channelURL}`);
@@ -30,8 +30,8 @@ class ChannelList extends React.PureComponent {
               return (
                 <div key={name + index.toString()}>
                   <Button
-                    data-testid="channel-list-button"
-                    onClick={this.handleClick(url)}
+                    data-testid={`${name}${index.toString()}`}
+                    onClick={() => this.handleClick(url)}
                     className={channelButton}
                   >
                     {name}
