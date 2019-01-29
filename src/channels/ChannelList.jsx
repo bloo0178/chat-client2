@@ -31,7 +31,7 @@ class ChannelList extends React.PureComponent {
                 <div key={name + index.toString()}>
                   <Button
                     data-testid={`${name}${index.toString()}`}
-                    onClick={() => this.handleClick(url)}
+                    onClick={() => this.handleClick(url)()}
                     className={channelButton}
                   >
                     {name}
