@@ -80,7 +80,7 @@ class CreateChannelButton extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.createChannel} color="primary">
+            <Button id="createChannel" onClick={this.createChannel} color="primary">
               Create
             </Button>
           </DialogActions>

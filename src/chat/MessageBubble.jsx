@@ -22,7 +22,7 @@ const MessageBubble = props => {
   }
   return (
     <div className={bubbleWrapper}>
-      <div className={bubbleClass}>{displayMessage}</div>
+      <div id={'displayMessage'} className={bubbleClass}>{displayMessage}</div>
     </div>
   );
 };

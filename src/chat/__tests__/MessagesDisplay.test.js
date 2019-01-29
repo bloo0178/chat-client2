@@ -1,24 +1,28 @@
-import React from 'react';
-import {createShallow } from '@material-ui/core/test-utils';
+import React from "react";
+import { shallow } from "enzyme";
 import MessagesDisplay from "../MessagesDisplay";
+import MessageBubble from "../MessageBubble";
 
 describe("<MessagesDisplay />", () => {
-    let shallow; 
-    const props = {
-        messages: [
-          { sender: "You", message: "test-you" },
-          { sender: "someoneElse", message: "other-test" },
-          { sender: "info", message: "someone has left" }
-        ]
-      };
+  let wrapper;
+  const props = {
+    messages: [
+      { sender: "You", message: "test-you" },
+      { sender: "someoneElse", message: "other-test" },
+      { sender: "info", message: "someone has left" }
+    ]
+  };
 
-    beforeEach(() => {
-        shallow = createShallow({dive: true});
-    })
+  beforeEach(() => {
+    wrapper = shallow(<MessagesDisplay {...props} />).dive();
+  });
 
-    test("does it render", () => {
-        const wrapper = shallow(<MessagesDisplay {...props} />);
-        expect(wrapper).toBeDefined();
-    })
+  test("does it render", () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 
-})
+  test("it renders the correct number of message bubbles", () => {
+    const MessageBubbles = wrapper.find(MessageBubble);
+    expect(MessageBubbles).toHaveLength(3);
+  });
+});

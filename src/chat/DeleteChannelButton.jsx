@@ -24,7 +24,7 @@ class DeleteChannelButton extends React.PureComponent {
 
   handleDelete = openSnackbar => async () => {
     const { history, channel } = this.props;
-    //if (disableDelete) return;
+    if (!this.isOperator()) return;
     await this.deleteChannel();
     history.push("/channels");
     openSnackbar(`Channel ${channel.name} deleted.`);
