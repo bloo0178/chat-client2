@@ -24,7 +24,9 @@ exports[`<Login /> the entire login page renders correctly 1`] = `
     variant="standard"
   />
   <LoginButton
+    history={Object {}}
     id="loginButton"
+    setSB={[MockFunction]}
     username=""
   />
 </div>

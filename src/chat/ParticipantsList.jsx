@@ -5,11 +5,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 const ParticipantsList = props => {
   const {
     classes: { participantsListContainer },
-    open,
+    isOpen,
     toggle,
     participants
   } = props;
@@ -32,11 +33,17 @@ const ParticipantsList = props => {
 
   return (
     <React.Fragment>
-      <Drawer open={open} onClick={toggle}>
+      <Drawer open={isOpen} onClick={toggle}>
         <div>{formattedList}</div>
       </Drawer>
     </React.Fragment>
   );
 };
+
+ParticipantsList.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggle: PropTypes.func.isRequired,
+  participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+}
 
 export default withStyles(styles)(ParticipantsList);

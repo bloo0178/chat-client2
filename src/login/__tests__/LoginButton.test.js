@@ -6,7 +6,7 @@ import sinon from "sinon";
 describe("<LoginButton />", () => {
   let wrapper;
   const props = {
-    history: jest.fn(),
+    history: {},
     username: "test",
     setSB: jest.fn()
   };

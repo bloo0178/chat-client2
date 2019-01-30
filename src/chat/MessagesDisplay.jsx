@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import MessageBubble from "./MessageBubble";
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 class MessagesDisplay extends React.Component {
   constructor(props) {
@@ -40,6 +41,10 @@ class MessagesDisplay extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+MessagesDisplay.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default withStyles(styles)(MessagesDisplay);

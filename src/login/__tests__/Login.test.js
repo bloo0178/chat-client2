@@ -5,9 +5,14 @@ import Login from "../Login";
 
 describe("<Login />", () => {
 
+    const props = {
+        history: {},
+        setSB: jest.fn(),
+    }
+
     let wrapper; 
     beforeEach(() => {
-        wrapper = shallow(<Login />).dive();
+        wrapper = shallow(<Login {...props} />).dive();
     })
 
     test("it renders", () => {

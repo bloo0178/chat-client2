@@ -10,7 +10,6 @@ describe("<DeleteChannelButton />", ()=> {
         channel: { isOperatorWithUserId: jest.fn() }, 
         sb: { getCurrentUserId: jest.fn() }, 
         openSnackbar: jest.fn(),
-        //deleteChannel: jest.fn()
       };
 
 

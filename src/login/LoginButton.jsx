@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import * as SendBird from "sendbird";
+import PropTypes from 'prop-types';
 
 class LoginButton extends React.PureComponent {
   connectToSendbird = username => {
@@ -37,6 +38,12 @@ class LoginButton extends React.PureComponent {
       </Button>
     );
   }
+}
+
+LoginButton.propTypes = {
+  setSB: PropTypes.func.isRequired,
+  username: PropTypes.string,
+  history: PropTypes.object.isRequired,
 }
 
 export default LoginButton;

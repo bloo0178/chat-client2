@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 const MessageBubble = props => {
   const {
@@ -26,5 +27,10 @@ const MessageBubble = props => {
     </div>
   );
 };
+
+MessageBubble.propTypes = {
+  sender: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+}
 
 export default withStyles(styles)(MessageBubble);

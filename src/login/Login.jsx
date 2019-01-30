@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import LoginButton from "./LoginButton";
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   state = {
@@ -39,6 +40,11 @@ class Login extends React.Component {
       </div>
     );
   }
+}
+
+Login.propTypes = {
+  history: PropTypes.object.isRequired,
+  setSB: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Login);

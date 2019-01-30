@@ -6,7 +6,7 @@ import ListItem from "@material-ui/core/ListItem";
 
 describe("<ParticipantsList />", () => {
   const props = {
-    open: true,
+    isOpen: true,
     toggle: jest.fn(),
     participants: ["One", "Two", "Three", "Four"]
   };
@@ -20,7 +20,6 @@ describe("<ParticipantsList />", () => {
     const wrapper = shallow(<ParticipantsList {...props} />).dive();
     const list = wrapper.find(List).dive();
     const listItem = list.find(ListItem);
-
     //console.log(list.dive().debug());
     expect(list).toHaveLength(1);
     expect(listItem).toHaveLength(4);

@@ -7,7 +7,7 @@ import NavBar from "../common/NavBar";
 import styles from "./styles";
 import MessageInput from "./MessageInput";
 import MessagesDisplay from "./MessagesDisplay";
-import { addChannelHandler } from "../utils/channelHandler";
+import { addChannelHandler, getParticipantList } from "../utils/channelHandler";
 import { getChannel, exitChannel, getMessages } from "../utils/sendbirdHelpers";
 import PropTypes from 'prop-types';
 
@@ -24,6 +24,7 @@ class Chat extends React.Component {
     const { sb } = this.props;
     const channelURL = this.props.match.params.channelURL;
     const channel = await getChannel(sb, channelURL);
+    let initialParticipants = getParticipantList(channel);
     let prevMessages = await getMessages(channel);
     prevMessages = prevMessages.map(message => {
       return this.transformMessage(message);
@@ -33,6 +34,7 @@ class Chat extends React.Component {
       channel: channel,
       channelName: channel.name,
       messages: prevMessages,
+      participants: initialParticipants,
       loading: false
     });
     addChannelHandler(sb, channel, this.updateParticipants, this.addNewMessage);

@@ -13,7 +13,7 @@ class ChatMenu extends React.Component {
     super(props);
     this.state = {
       anchorEl: null,
-      toggleParticipants: false
+      isOpen: false
     };
   }
 
@@ -33,14 +33,14 @@ class ChatMenu extends React.Component {
 
   toggleParticipants = () => {
     this.setState({
-      toggleParticipants: !this.state.toggleParticipants
+      isOpen: !this.state.isOpen
     });
     this.handleClose();
   };
 
   render() {
     const { participants, channel, history, sb } = this.props;
-    const { anchorEl, toggleParticipants } = this.state;
+    const { anchorEl, isOpen } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -56,7 +56,7 @@ class ChatMenu extends React.Component {
           <DeleteChannelButton history={history} channel={channel} sb={sb} />
         </Menu>
         <ParticipantsList
-          open={toggleParticipants}
+          isOpen={isOpen}
           toggle={this.toggleParticipants}
           channel={channel}
           participants={participants}

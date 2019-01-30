@@ -3,6 +3,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import { SharedSnackbarContext } from "../common/SharedSnackbar.context";
+import PropTypes from 'prop-types';
 
 class DeleteChannelButton extends React.PureComponent {
   isOperator = () => {
@@ -50,6 +51,11 @@ class DeleteChannelButton extends React.PureComponent {
       </MenuItem>
     );
   }
+}
+
+DeleteChannelButton.propTypes = {
+  channel: PropTypes.object.isRequired,
+  sb: PropTypes.object.isRequired,
 }
 
 DeleteChannelButton.contextType = SharedSnackbarContext;

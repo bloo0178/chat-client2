@@ -1,4 +1,4 @@
-const getParticipantList = channel => {
+export const getParticipantList = channel => {
   let list = [];
   const participantListQuery = channel.createParticipantListQuery();
   participantListQuery.next((participantList, error) => {
@@ -19,7 +19,6 @@ export const addChannelHandler = (
   const ChannelHandler = new sb.ChannelHandler();
   const channelHandlerID = channel.url;
   ChannelHandler.onUserEntered = (openChannel, user) => {
-    //why does this return openChannel?
     const participantList = getParticipantList(channel);
     const newMessage = {
       _sender: {userId: "info"},
