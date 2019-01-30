@@ -2,7 +2,10 @@
 
 exports[`<Channels /> does it render correctly 1`] = `
 <Fragment>
-  <WithStyles(Navbar) />
+  <WithStyles(Navbar)
+    history={Object {}}
+    sb={Object {}}
+  />
   <div
     className="Channels-channelsContainer-1"
   >
@@ -12,6 +15,7 @@ exports[`<Channels /> does it render correctly 1`] = `
       <WithStyles(ChannelList)
         channels={Array []}
         enterChannel={[Function]}
+        history={Object {}}
       />
     </div>
     <div
@@ -19,6 +23,8 @@ exports[`<Channels /> does it render correctly 1`] = `
     >
       <CreateChannelButton
         enterChannel={[Function]}
+        history={Object {}}
+        sb={Object {}}
       />
     </div>
   </div>

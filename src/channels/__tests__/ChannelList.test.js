@@ -11,7 +11,9 @@ describe("<ChannelList />", () => {
       { name: "test-channel1", url: "www.test1.com" },
       { name: "test-channel2", url: "www.test2.com" },
       { name: "test-channel3", url: "www.test3.com" }
-    ]
+    ], 
+    history: {},
+    enterChannel: jest.fn(),
   };
 
   let wrapper;

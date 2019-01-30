@@ -67,6 +67,7 @@ class Channels extends React.Component {
 
 Channels.propTypes = {
   sb: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(Channels);

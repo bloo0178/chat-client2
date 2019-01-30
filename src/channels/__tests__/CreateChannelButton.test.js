@@ -6,8 +6,14 @@ import sinon from "sinon";
 describe("<CreateChannelButton />", () => {
   let wrapper;
 
+  const props = {
+    sb: {},
+    history: {},
+    enterChannel: jest.fn(),
+  }
+
   beforeEach(() => {
-    wrapper = shallow(<CreateChannelButton />);
+    wrapper = shallow(<CreateChannelButton {...props} />);
   });
 
   test("it renders only the button when isOpen=false", () => {

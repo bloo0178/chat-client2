@@ -29,6 +29,7 @@ exports[`<ChatMenu /> does it render correctly 1`] = `
           "isOperatorWithUserId": [MockFunction],
         }
       }
+      history={Object {}}
       sb={
         Object {
           "getCurrentUserId": [MockFunction],

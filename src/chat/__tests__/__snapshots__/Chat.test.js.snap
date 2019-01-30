@@ -11,7 +11,7 @@ exports[`<Chat /> it renders a loading spinner while loading 1`] = `
 exports[`<Chat /> it renders after loading 1`] = `
 <Fragment>
   <WithStyles(Navbar)
-    history={[MockFunction]}
+    history={Object {}}
     sb={Object {}}
   />
   <div
@@ -25,7 +25,7 @@ exports[`<Chat /> it renders after loading 1`] = `
       >
         <ChatMenu
           channel={Object {}}
-          history={[MockFunction]}
+          history={Object {}}
           participants={Array []}
           sb={Object {}}
         />

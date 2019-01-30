@@ -5,7 +5,8 @@ import Channels from '../Channels';
 describe("<Channels />", () => {
     let wrapper;
     const props = {
-
+        sb: {},
+        history: {},
     }
     beforeEach(() => {
         wrapper = shallow(<Channels {...props} />).dive();

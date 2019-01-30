@@ -7,7 +7,7 @@ describe("<Chat />", () => {
     const props = {
         channel: {name: 'test-channel'}, 
         sb: {},
-        history: jest.fn(),
+        history: {},
     }
 
     beforeEach(() => {
@@ -24,7 +24,6 @@ describe("<Chat />", () => {
             channel: {},
             channelName: 'test-channel'
         })
-        //console.log(wrapper.debug());
         expect(wrapper).toMatchSnapshot();
     })
 })

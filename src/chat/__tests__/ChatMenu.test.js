@@ -7,7 +7,8 @@ describe("<ChatMenu />", () => {
   const props = {
     participants: ["test1", "test2", "test3"],
     channel: { isOperatorWithUserId: jest.fn() }, //get this to return true
-    sb: { getCurrentUserId: jest.fn() }
+    sb: { getCurrentUserId: jest.fn() },
+    history: {},
   };
 
   beforeEach(() => {
