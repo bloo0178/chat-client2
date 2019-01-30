@@ -4,6 +4,7 @@ import ChannelList from "./ChannelList";
 import CreateChannelButton from "./CreateChannelButton";
 import NavBar from "../common/NavBar";
 import styles from "./styles";
+import PropTypes from 'prop-types';
 
 class Channels extends React.Component {
   state = {
@@ -62,6 +63,10 @@ class Channels extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+Channels.propTypes = {
+  sb: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(Channels);

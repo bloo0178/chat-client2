@@ -9,6 +9,7 @@ import MessageInput from "./MessageInput";
 import MessagesDisplay from "./MessagesDisplay";
 import { addChannelHandler } from "../utils/channelHandler";
 import { getChannel, exitChannel, getMessages } from "../utils/sendbirdHelpers";
+import PropTypes from 'prop-types';
 
 class Chat extends React.Component {
   state = {
@@ -125,6 +126,10 @@ class Chat extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+Chat.propTypes = {
+  sb: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(Chat);

@@ -7,6 +7,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import PropTypes from 'prop-types';
 
 class CreateChannelButton extends React.Component {
   constructor(props) {
@@ -88,6 +89,12 @@ class CreateChannelButton extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+CreateChannelButton.propTypes = {
+  sb: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  enterChannel: PropTypes.func.isRequired,
 }
 
 export default CreateChannelButton;

@@ -12,7 +12,7 @@ exports[`<Chat /> it renders after loading 1`] = `
 <Fragment>
   <WithStyles(Navbar)
     history={[MockFunction]}
-    sb={[MockFunction]}
+    sb={Object {}}
   />
   <div
     className="Chat-chatContainer-1"
@@ -27,7 +27,7 @@ exports[`<Chat /> it renders after loading 1`] = `
           channel={Object {}}
           history={[MockFunction]}
           participants={Array []}
-          sb={[MockFunction]}
+          sb={Object {}}
         />
       </ChatHeader>
     </div>

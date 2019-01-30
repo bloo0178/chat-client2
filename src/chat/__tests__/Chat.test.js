@@ -6,7 +6,7 @@ describe("<Chat />", () => {
     let wrapper;
     const props = {
         channel: {name: 'test-channel'}, 
-        sb: jest.fn(),
+        sb: {},
         history: jest.fn(),
     }
 

@@ -5,9 +5,10 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import styles from "./styles";
+import PropTypes from "prop-types";
 
 class ChannelList extends React.PureComponent {
-  handleClick = (channelURL) => async event => {
+  handleClick = channelURL => async event => {
     const { history, enterChannel } = this.props;
     await enterChannel(channelURL);
     history.push(`/chat/${channelURL}`);
@@ -45,5 +46,11 @@ class ChannelList extends React.PureComponent {
     );
   }
 }
+
+ChannelList.propTypes = {
+  channels: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.object.isRequired,
+  enterChannel: PropTypes.func.isRequired
+};
 
 export default withStyles(styles)(ChannelList);

@@ -6,6 +6,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ParticipantsList from "./ParticipantsList";
 import { exitChannel } from "../utils/sendbirdHelpers";
 import DeleteChannelButton from "./DeleteChannelButton";
+import PropTypes from 'prop-types';
 
 class ChatMenu extends React.Component {
   constructor(props) {
@@ -63,6 +64,13 @@ class ChatMenu extends React.Component {
       </React.Fragment>
     );
   }
+}
+
+ChatMenu.propTypes = {
+  history: PropTypes.object.isRequired,
+  channel: PropTypes.object.isRequired,
+  participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sb: PropTypes.object.isRequired,
 }
 
 export default ChatMenu;

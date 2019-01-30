@@ -45,7 +45,7 @@ export const addChannelHandler = (
    */
   ChannelHandler.onChannelDeleted = (channelUrl, channelType) => {
     const newMessage = {
-      sender: "info",
+      _sender: {userId: "info"},
       message:
         "This channel has been deleted. You are no longer able to send or receive messages here."
     };
