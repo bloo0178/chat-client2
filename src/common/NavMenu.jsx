@@ -14,13 +14,13 @@ class NavMenu extends React.Component {
     };
   }
 
-  handleOpen = event => {
+  handleClick = event => {
     this.setState({
       anchorEl: event.currentTarget
     });
   };
 
-  handleClose = () => {
+  handleClose = event => {
     this.setState({ anchorEl: null });
   };
 
@@ -38,22 +38,19 @@ class NavMenu extends React.Component {
     const { anchorEl } = this.state;
     return (
       <React.Fragment>
-        <IconButton color="inherit">
-          <MenuIcon onClick={this.handleOpen} />
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleClose}
-          >
-            <MenuItem
-              onClick={this.handleLogout}
-              component={Link}
-              to={"/login"}
-            >
-              Logout
-            </MenuItem>
-          </Menu>
+        <IconButton onClick={this.handleClick} color="inherit">
+          <MenuIcon />
         </IconButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+        >
+          <MenuItem onClick={this.handleLogout} component={Link} to={"/login"}>
+            Logout
+          </MenuItem>
+        </Menu>
       </React.Fragment>
     );
   }

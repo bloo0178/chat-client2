@@ -43,6 +43,8 @@ export const addChannelHandler = (
    * Consider changing this. Add in a push to /channels and an alert in place of an info message.
    */
   ChannelHandler.onChannelDeleted = (channelUrl, channelType) => {
+    console.dir(channelUrl);
+    console.dir(channelType);
     const newMessage = {
       _sender: {userId: "info"},
       message:

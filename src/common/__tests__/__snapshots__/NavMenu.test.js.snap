@@ -4,23 +4,23 @@ exports[`<NavMenu /> it renders correctly 1`] = `
 <Fragment>
   <WithStyles(IconButton)
     color="inherit"
+    onClick={[Function]}
   >
-    <pure(MenuIcon)
-      onClick={[Function]}
-    />
-    <WithStyles(Menu)
-      anchorEl={null}
-      onClose={[Function]}
-      open={false}
-    >
-      <WithStyles(MenuItem)
-        component={[Function]}
-        onClick={[Function]}
-        to="/login"
-      >
-        Logout
-      </WithStyles(MenuItem)>
-    </WithStyles(Menu)>
+    <pure(MenuIcon) />
   </WithStyles(IconButton)>
+  <WithStyles(Menu)
+    anchorEl={null}
+    id="simple-menu"
+    onClose={[Function]}
+    open={false}
+  >
+    <WithStyles(MenuItem)
+      component={[Function]}
+      onClick={[Function]}
+      to="/login"
+    >
+      Logout
+    </WithStyles(MenuItem)>
+  </WithStyles(Menu)>
 </Fragment>
 `;
