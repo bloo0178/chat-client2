@@ -3,16 +3,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
-import NavMenu from "./NavMenu";
+import NavMenu from '../NavMenu/NavMenu';
+import styles from './NavBar.styles';
 
-const styles = {
-    root: {
-      display: "flex"
-    },
-    menuIcon: {
-      marginLeft: "auto"
-    }
-  };
 
 const Navbar = props => {
   const {

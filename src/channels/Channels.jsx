@@ -2,7 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import ChannelList from "./ChannelList";
 import CreateChannelButton from "./CreateChannelButton";
-import NavBar from "../common/NavBar";
+import NavBar from "../components/common/NavBar/NavBar";
 import styles from "./styles";
 import PropTypes from 'prop-types';
 

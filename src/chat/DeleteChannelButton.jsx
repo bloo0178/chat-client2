@@ -2,7 +2,7 @@ import React from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
-import { SharedSnackbarContext } from "../common/SharedSnackbar.context";
+import { SharedSnackbarContext } from "../components/common/Snackbar/SharedSnackbar.context";
 import PropTypes from 'prop-types';
 
 class DeleteChannelButton extends React.PureComponent {

@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import LoginButton from "../LoginButton";
+import LoginButton from "./LoginButton";
 import sinon from "sinon";
 
 describe("<LoginButton />", () => {

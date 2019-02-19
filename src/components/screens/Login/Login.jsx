@@ -1,8 +1,8 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
-import LoginButton from "./LoginButton";
-import styles from './styles';
+import LoginButton from "./LoginButton/LoginButton";
+import styles from './Login.styles';
 import PropTypes from 'prop-types';
 
 class Login extends React.Component {

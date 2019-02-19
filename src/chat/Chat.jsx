@@ -3,7 +3,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { withStyles } from "@material-ui/core/styles";
 import ChatHeader from "./ChatHeader";
 import ChatMenu from "./ChatMenu";
-import NavBar from "../common/NavBar";
+import NavBar from "../components/common/NavBar/NavBar";
 import styles from "./styles";
 import MessageInput from "./MessageInput";
 import MessagesDisplay from "./MessagesDisplay";

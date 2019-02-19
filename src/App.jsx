@@ -1,9 +1,9 @@
 import React from "react";
-import Login from "./login/Login";
+import Login from './components/screens/Login/Login';
 import Channels from "./channels/Channels";
 import Chat from "./chat/Chat";
-import ProtectedRoute from "./common/ProtectedRoute";
-import { SharedSnackbarProvider } from "./common/SharedSnackbar.context";
+import ProtectedRoute from "./components/common/ProtectedRoute/ProtectedRoute";
+import { SharedSnackbarProvider } from './components/common/Snackbar/SharedSnackbar.context';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends React.Component {

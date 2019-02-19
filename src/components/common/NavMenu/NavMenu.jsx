@@ -4,7 +4,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Link } from "react-router-dom";
-import { getChannel, exitChannel } from "../utils/sendbirdHelpers";
+import { getChannel, exitChannel } from "../../../utils/sendbirdHelpers";
 
 class NavMenu extends React.Component {
   constructor(props) {

@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import NavMenu from "../NavMenu";
+import NavBar from "./NavBar";
 
 describe("<NavMenu />", () => {
   test("it renders correctly", () => {
-    let wrapper = shallow(<NavMenu />);
+    let wrapper = shallow(<NavBar />).dive();
     expect(wrapper).toMatchSnapshot();
-  });
-});
+  })
+})
