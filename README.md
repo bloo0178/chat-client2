@@ -1,4 +1,4 @@
-# Chat-Client v2 Overview
+# SendBird Chat Client Overview
 Chat client built as a learning project. Current state allows users to enter the app by entering a username. Users can select or create a channel from the /channels screen. Within the /chat screen, one to many users will be able to send/ receive messages, load previous messages, view active participants, leave the channel, and delete the channel if they are an admin/ creator of the channel.
 
 There are three main screens within the app: 
